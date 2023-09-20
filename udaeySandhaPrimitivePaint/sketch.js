@@ -30,12 +30,9 @@
 // //}
 
 let shapeSize=50, overlay, shape="shape1";
-let inconsolata;
-function preload() {
-  inconsolata = loadFont("Inconsolata-VariableFont_wdth,wght.ttf");
-}
+
 function setup() {
-  createCanvas(windowWidth, windowHeight,WEBGL);
+  createCanvas(windowWidth, windowHeight);
   overlay=createGraphics(width,height);
 }
 
@@ -57,6 +54,6 @@ function mouseShape(){
 function draw() {
   background(220);
   mouseShape();
-  textFont(inconsolata);
+  textFont("inconsolata");
   text("Udaey Sandha",width-90,height-10);
 }
