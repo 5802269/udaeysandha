@@ -35,7 +35,6 @@ let previewCanvas,colorIndex=0;
 
 function cleanSlate(){ 
   overlay.background(220);
-  previewCanvas.clear
 }
 
 function setup() {
@@ -82,6 +81,7 @@ function mouseShape(){
   previewCanvas.fill(shapeColor[colorIndex])
   image(previewCanvas,0,0)
   image(overlay, 0, 0);
+
 }
 function inOutBall(){
   if (growing) {
@@ -99,13 +99,14 @@ function inOutBall(){
 }
 
 function draw() {
+  background(220);
+
+  ("blue")
+  text("Udaey Sandha ",width,height);
+
   if (keyIsPressed && key === " ") {
     cleanSlate();
   }
-  background(220);
   mouseShape();
-  ("blue")
-  text("Udaey Sandha ",width,height);
   inOutBall();
-
 }
