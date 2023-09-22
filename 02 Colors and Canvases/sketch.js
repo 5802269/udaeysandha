@@ -4,12 +4,13 @@
 //Playing around with colors and layers
 
 //Global Variable
-let ballX, xSpeed=5, ballSize=30, overlay, colorA, colorB;
+let ballX,ballY,ySpeed=8, xSpeed=5, ballSize=30, overlay, colorA, colorB;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   overlay=createGraphics(width,height);
   ballX=width/2;
+  ballY=height/2;
   colorA = color(200,100,0);
   colorB = color("yellow");
 }
@@ -31,10 +32,14 @@ function draw() {
 }
 function drawAndMoveBall(){
   ballX = ballX + xSpeed;
+  ballY = ballY + ySpeed;
   if (ballX+ballSize/2 >= width || ballX-ballSize/2 <= 0) {
     xSpeed *=-1;
   }
+  if (ballY+ballSize/2 >= height || ballY-ballSize/2 <= 0) {
+    ySpeed *=-1;
+  }
   fill(0);
-  circle(ballX, height/2, ballSize);
-
+  circle(ballX, ballY, ballSize);
+print (ballX,ballY)
 }

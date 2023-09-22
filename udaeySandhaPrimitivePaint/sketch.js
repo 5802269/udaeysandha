@@ -1,35 +1,9 @@
-// // Primitive Paint
-// // Udaey Sandha
-// // Sept 15, 2023
-// let shapeSize=50,shape,overlay;
-// function setup() {
-//   createCanvas(windowWidth, windowHeight);
-//   overlay=createGraphics(width,height);
-// }
-// function draw() {
-//   background(210);
-//   mouseDraw();
-// }
-// function mouseDraw() {
-//   if (keyIsPressed){
-//     if (key === "a" ) shape = rect(mouseX,mouseY,shapeSize*1.618,shapeSize);
-//     else if (key === "s" ) shape = ellipse(mouseX,mouseY,shapeSize,shapeSize);
-//     else if (key === "d" ) shape = square(mouseX,mouseY,shapeSize);
-//   }
-//   if (mouseIsPressed) overlay.shape;
-//   image(overlay,0,0);
-// }
-// // function shape1() {
-// //   return rect(mouseX,mouseY,shapeSize*1.618,shapeSize);
-// // }
-// // function shape2() {
-// //   return ellipse(mouseX,mouseY,shapeSize,shapeSize);
-// // }
-// // function shape3() {
-// //   return square(mouseX,mouseY,shapeSize);
-// //}
+// Primitive Paint
+// Udaey Sandha
+// Sept 15, 2023
 
-let shapeSize = 20;
+// declaring stuff
+let shapeSize = 25;
 let overlay;
 let shape = "shape1";
 let ballSize = 0;
@@ -38,15 +12,17 @@ let growing = true;
 let maxSize = 400;
 let previewCanvas;
 let colorIndex = 0;
+let ballX,ballY,ySpeed=8, xSpeed=5;
 
-function cleanSlate() {
-  overlay.background(220);
-}
-
+// creating 2 extra canvases one for preview and one for drawings
 function setup() {
   createCanvas(windowWidth, windowHeight);
   overlay = createGraphics(width, height);
   previewCanvas = createGraphics(width, height);
+  ballX=width/2;
+  ballY=height/2;
+  for (let element of document.getElementsByClassName("p5Canvas")) {
+    element.addEventListener("contextmenu", (e) => e.preventDefault());}
   textFont("inconsolata", 20);
   textAlign(RIGHT, BOTTOM);
   shapeColor = [
@@ -68,15 +44,18 @@ function setup() {
     color("yellow"),
   ];
 }
-
+function cleanSlate() {
+  overlay.background(220);
+}
 function mouseWheel(event) {
   print(event.delta);
   shapeSize += (event.delta / 8) * -1;
-  shapeSize = constrain(shapeSize, 25, maxSize);
+  shapeSize = constrain(shapeSize, 20, maxSize);
 }
 
 function mouseShape() {
-  previewCanvas.background(220);
+  previewCanvas = createGraphics(width, height);
+  previewCanvas.fill(shapeColor[colorIndex]);
 
   if (keyIsPressed) {
     if (key === "a") shape = "shape1";
@@ -105,7 +84,7 @@ function mouseShape() {
           mouseY - shapeSize / 2
         );
     }
-    if (mouseButton === CENTER) {
+    if (mouseButton === RIGHT) {
       colorIndex++;
       if (colorIndex > shapeColor.length - 1) colorIndex = 0;
     }
@@ -129,11 +108,12 @@ function mouseShape() {
       mouseY - shapeSize / 2
     );
 
-  // shapeColor=(color("red"));
+
   overlay.fill(shapeColor[colorIndex]);
   previewCanvas.fill(shapeColor[colorIndex]);
-  image(previewCanvas, 0, 0);
   image(overlay, 0, 0);
+  image(previewCanvas, 0, 0);
+
 }
 function inOutBall() {
   if (growing) {
@@ -144,10 +124,18 @@ function inOutBall() {
   if (ballSize > maxSize || ballSize < 0) {
     growing = !growing;
   }
+  ballX = ballX + xSpeed;
+  ballY = ballY + ySpeed;
+  if (ballX+ballSize/2 >= width || ballX-ballSize/2 <= 0) {
+    xSpeed *=-1;
+  }
+  if (ballY+ballSize/2 >= height || ballY-ballSize/2 <= 0) {
+    ySpeed *=-1;
+  }
   noStroke();
   fill(0, 0, 255, 100);
-  circle(width / 2, height / 2, ballSize);
-  circle(width / 2, height / 2, Math.abs(ballSize - maxSize));
+  circle(ballX, ballY, ballSize);
+  circle(ballX, ballY, Math.abs(ballSize - maxSize));
 }
 
 function draw() {
