@@ -126,6 +126,9 @@ function inOutBall() {
   }
   ballX = ballX + xSpeed;
   ballY = ballY + ySpeed;
+  if (ballSize>ballSize-maxSize){
+    
+  }
   if (ballX+ballSize/2 >= width || ballX-ballSize/2 <= 0) {
     xSpeed *=-1;
   }
