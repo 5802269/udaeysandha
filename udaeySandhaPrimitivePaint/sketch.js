@@ -13,7 +13,7 @@ let shapeSize = 25,
   colorIndex = 0,
   ballX,
   ballY,
-  ySpeed = 1,
+  ySpeed = 3,
   xSpeed = 2,
   tempBallSize,
   // Array of colors
@@ -187,6 +187,8 @@ function inOutBall() {
     tempBallSize = ballSize;
   }
 
+
+
   if (ballX + tempBallSize / 2 >= width || ballX - tempBallSize / 2 <= 0) {
     xSpeed *= -1;
   }
@@ -194,8 +196,13 @@ function inOutBall() {
     ySpeed *= -1;
   }
 
+  if (ballX + tempBallSize / 2 > width) ballX = width - tempBallSize / 2;
+  else if (ballX - tempBallSize / 2 < 0) ballX = tempBallSize / 2;
+  else if (ballY + tempBallSize > height) ballY = height - tempBallSize / 2;
+  else if (ballY - tempBallSize < 0) ballY = tempBallSize / 2;
+
   noStroke();
-  fill(0, 0, 255, 100);
+  fill(shapeColorOptions[colorIndex], 100);
   circle(ballX, ballY, ballSize);
   circle(ballX, ballY, radius);
 }
