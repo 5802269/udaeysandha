@@ -13,7 +13,11 @@ let shapeSize = 25,
   colorIndex = 0,
   ballX,
   ballY,
+<<<<<<< HEAD
   ySpeed = 3,
+=======
+  ySpeed = 1,
+>>>>>>> parent of 87586cc (new changes)
   xSpeed = 2,
   tempBallSize,
   // Array of colors
@@ -187,8 +191,11 @@ function inOutBall() {
     tempBallSize = ballSize;
   }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of 87586cc (new changes)
   if (ballX + tempBallSize / 2 >= width || ballX - tempBallSize / 2 <= 0) {
     xSpeed *= -1;
   }
@@ -196,6 +203,7 @@ function inOutBall() {
     ySpeed *= -1;
   }
 
+<<<<<<< HEAD
   if (ballX + tempBallSize / 2 > width) ballX = width - tempBallSize / 2;
   else if (ballX - tempBallSize / 2 < 0) ballX = tempBallSize / 2;
   else if (ballY + tempBallSize > height) ballY = height - tempBallSize / 2;
@@ -203,6 +211,10 @@ function inOutBall() {
 
   noStroke();
   fill(shapeColorOptions[colorIndex], 100);
+=======
+  noStroke();
+  fill(0, 0, 255, 100);
+>>>>>>> parent of 87586cc (new changes)
   circle(ballX, ballY, ballSize);
   circle(ballX, ballY, radius);
 }
