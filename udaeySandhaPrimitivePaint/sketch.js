@@ -13,33 +13,11 @@ let shapeSize = 25,
   colorIndex = 0,
   ballX,
   ballY,
-<<<<<<< HEAD
   ySpeed = 3,
-=======
-  ySpeed = 1,
->>>>>>> parent of 87586cc (new changes)
-  xSpeed = 2,
+  xSpeed = 4,
   tempBallSize,
-  // Array of colors
-  shapeColorOptions = [
-    "aqua",
-    "black",
-    "blue",
-    "fuchsia",
-    "gray",
-    "green",
-    "lime",
-    "maroon",
-    "navy",
-    "olive",
-    "purple",
-    "red",
-    "silver",
-    "teal",
-    "white",
-    "yellow",
-  ];
-
+  shapeColorOptions;
+//----------------------------------------------------------------------------------------------------------------
 function setup() {
   createCanvas(windowWidth, windowHeight);
   overlay = createGraphics(width, height);
@@ -50,38 +28,58 @@ function setup() {
   for (let element of document.getElementsByClassName("p5Canvas")) {
     element.addEventListener("contextmenu", (e) => e.preventDefault());
   }
-  textFont("inconsolata", 20);
+  textFont("inconsolata", 30);
   textAlign(RIGHT, BOTTOM);
   // Array of shapes
   let shapes = ["shape1", "shape2", "shape3"];
   // Randomly selecting a default shape
   shape = random(shapes);
+  // Array of colors
+  shapeColorOptions = [
+    color(0, 255, 255),
+    color(0, 0, 0),
+    color(0, 0, 255),
+    color(255, 0, 255),
+    color(128, 128, 128),
+    color(0, 128, 0),
+    color(0, 255, 0),
+    color(128, 0, 0),
+    color(0, 0, 128),
+    color(128, 128, 0),
+    color(128, 0, 128),
+    color(255, 0, 0),
+    color(192, 192, 192),
+    color(0, 128, 128),
+    color(255, 255, 255),
+    color(255, 255, 0),
+  ];
   // Randomly selecting a defaut color
   colorIndex = floor(random(shapeColorOptions.length));
 }
-
+//----------------------------------------------------------------------------------------------------------------
 function cleanSlate() {
   // Cleans the background
   overlay.background(220);
 }
-
+//----------------------------------------------------------------------------------------------------------------
 function mouseWheel(event) {
   // Changes the shape size according to the mouse wheel scroll
   shapeSize += (event.delta / 8) * -1;
   shapeSize = constrain(shapeSize, 20, maxSize);
 }
-
+//----------------------------------------------------------------------------------------------------------------
+// the main draw loop - calls other functions, write name at the bottom, calls clean slate when " " pressed
 function draw() {
   background(220);
   mouseShape();
   inOutBall();
-  fill("blue");
+  fill(getCurrentColor());
   text("Udaey Sandha ", width, height);
   if (keyIsPressed && key === " ") {
     cleanSlate();
   }
 }
-
+//----------------------------------------------------------------------------------------------------------------
 function mouseShape() {
   // clearing the preview canvas
   previewCanvas.clear();
@@ -111,12 +109,12 @@ function mouseShape() {
   image(overlay, 0, 0);
   image(previewCanvas, 0, 0);
 }
-
+//----------------------------------------------------------------------------------------------------------------
 // getting color according to index
 function getCurrentColor() {
   return color(shapeColorOptions[colorIndex]);
 }
-
+//----------------------------------------------------------------------------------------------------------------
 // drawing the shape
 function drawShape() {
   if (shape === "shape1") {
@@ -139,12 +137,12 @@ function drawShape() {
     );
   }
 }
-
+//----------------------------------------------------------------------------------------------------------------
 function changeColor() {
   // changing the color
   colorIndex = (colorIndex + 1) % shapeColorOptions.length;
 }
-
+//----------------------------------------------------------------------------------------------------------------
 function previewCurrentShape(x, y) {
   // previewing the shape
   if (shape === "shape1") {
@@ -167,7 +165,7 @@ function previewCurrentShape(x, y) {
     );
   }
 }
-
+//----------------------------------------------------------------------------------------------------------------
 function inOutBall() {
   // drawing a growing and shrinking ball
   if (growing) {
@@ -183,38 +181,40 @@ function inOutBall() {
   ballX = ballX + xSpeed;
   ballY = ballY + ySpeed;
 
-  let radius = Math.abs(ballSize - maxSize);
+  let ball2Size = Math.abs(ballSize - maxSize);
 
-  if (ballSize > radius) {
-    tempBallSize = radius;
+  if (ballSize > ball2Size) {
+    tempBallSize = ball2Size;
   } else {
     tempBallSize = ballSize;
   }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> parent of 87586cc (new changes)
-  if (ballX + tempBallSize / 2 >= width || ballX - tempBallSize / 2 <= 0) {
+  // Check for collisions with the canvas edges and changing directions
+  if (ballX + tempBallSize / 2 >= width) {
+    ballX = width - tempBallSize / 2;
     xSpeed *= -1;
   }
-  if (ballY + tempBallSize / 2 >= height || ballY - tempBallSize / 2 <= 0) {
+  if (ballX - tempBallSize / 2 <= 0) {
+    ballX = tempBallSize / 2;
+    xSpeed *= -1;
+  }
+  if (ballY + tempBallSize / 2 >= height) {
+    ballY = height - tempBallSize / 2;
     ySpeed *= -1;
   }
-
-<<<<<<< HEAD
-  if (ballX + tempBallSize / 2 > width) ballX = width - tempBallSize / 2;
-  else if (ballX - tempBallSize / 2 < 0) ballX = tempBallSize / 2;
-  else if (ballY + tempBallSize > height) ballY = height - tempBallSize / 2;
-  else if (ballY - tempBallSize < 0) ballY = tempBallSize / 2;
-
+  if (ballY - tempBallSize / 2 <= 0) {
+    ballY = tempBallSize / 2;
+    ySpeed *= -1;
+  }
   noStroke();
-  fill(shapeColorOptions[colorIndex], 100);
-=======
-  noStroke();
-  fill(0, 0, 255, 100);
->>>>>>> parent of 87586cc (new changes)
+  fill(
+    red(getCurrentColor()),
+    green(getCurrentColor()),
+    blue(getCurrentColor()),
+    100
+  );
   circle(ballX, ballY, ballSize);
-  circle(ballX, ballY, radius);
+  circle(ballX, ballY, ball2Size);
 }
+//----------------------------------------------------------------------------------------------------------------
+//End
