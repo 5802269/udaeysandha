@@ -1,15 +1,28 @@
-// Project Title
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Multi-Coloured Grid
+// Udaey Sandha
+// Sept 28, 2023
 
+// Global Variables
+let squareSize = 40, colorR, colorG , colorB;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowWidth);
 }
+
+function drawGrid(){
+  for (let x = 0; x<width;x+=squareSize){
+    for (let y =0; y<height;y+=squareSize){
+      square(x,y,squareSize);
+    }
+  }
+}
+
+function mousePressed(){
+ 
+}
+/// 
 
 function draw() {
   background(220);
+  drawGrid();
 }
