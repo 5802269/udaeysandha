@@ -6,7 +6,7 @@
 let squareSize = 40, colorR, colorG , colorB;
 
 function setup() {
-  createCanvas(windowWidth, windowWidth);
+  createCanvas(windowWidth, windowHeight);
 }
 
 function drawGrid(){
