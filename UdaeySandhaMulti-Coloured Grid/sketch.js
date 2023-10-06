@@ -1,49 +1,57 @@
-// Multi-Coloured Grid
-// Udaey Sandha
-// Sept 28, 2023
-
-// Global Variables
-let squareSize, colorR, colorG , colorB, numSquares,gdc;
+let gridSize;
+let grid;
+let colors = [];
+let bgColor;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  document.addEventListener("contextmenu", event => event.preventDefault());
-  gdc = gcd_two_numbers(height,width);
-  numSquares = width/gdc;
-  squareSize = constrain(squareSize,5,gdc);
+  noStroke();
+  generateColors();
+  calculateGridSize();
+  createGrid();
 }
 
-function gcd_two_numbers(x, y) {
-  x = Math.abs(x);
-  y = Math.abs(y);
-  while(y) {
-    let t = y;
-    y = x % y;
-    x = t;
-  }
-  return x;
-}
-
-function mousePressed(){
-  if (mouseButton === LEFT) numSquares -=numSquares;
-  else if (mouseButton === RIGHT) numSquares +=numSquares;
-  numSquares = constrain(numSquares,5,gdc);
-
-  console.log(numSquares+" "+squareSize);
-  drawGrid();
-}
-
-function drawGrid(){
-  squareSize = gdc/numSquares;
-  for (let x = 0; x<width;x+=squareSize){
-    for (let y =0; y<height;y+=squareSize){
-      square(x,y,squareSize);
+function draw() {
+  background(bgColor);
+  for (let i = 0; i < gridSize; i++) {
+    for (let j = 0; j < gridSize; j++) {
+      fill(colors[i][j]);
+      rect(j * (width / gridSize), i * (height / gridSize), width / gridSize, height / gridSize);
     }
   }
 }
 
-function draw() {
-  background(220);
-  drawGrid();
-  
+function calculateGridSize() {
+  gridSize = floor(random(5, 15)); // Adjust this range for more or fewer squares
+}
+
+function createGrid() {
+  grid = new Array(gridSize);
+  colors = new Array(gridSize);
+  for (let i = 0; i < gridSize; i++) {
+    grid[i] = new Array(gridSize);
+    colors[i] = new Array(gridSize);
+    for (let j = 0; j < gridSize; j++) {
+      grid[i][j] = random(2); // 0 or 1 for square color
+      colors[i][j] = color(random(255), random(255), random(255));
+    }
+  }
+}
+
+function generateColors() {
+  bgColor = color(random(255), random(255), random(255));
+  for (let i = 0; i < gridSize; i++) {
+    for (let j = 0; j < gridSize; j++) {
+      colors[i][j] = color(random(255), random(255), random(255));
+    }
+  }
+}
+
+function mouseClicked() {
+  calculateGridSize();
+  createGrid();
+}
+
+function keyPressed() {
+  generateColors();
 }
