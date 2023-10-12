@@ -16,6 +16,11 @@ const RECT_WIDTH = 0.5,
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+<<<<<<< Updated upstream
+=======
+  //drawTerrain();
+  //drawFlag();
+>>>>>>> Stashed changes
 }
 
 function generateTerrain() {
