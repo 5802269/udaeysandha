@@ -4,7 +4,7 @@
 // Creating a Traffic Simulation where each vehicle on the road will be an object created from a Vehicle class
 
 let eastbound = [];
-let westbound = [];
+let westbound = [],v;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -16,13 +16,15 @@ function initVehicles() {
     eastbound.push(new Vehicle(Math.floor(random(width)),Math.floor(random(height*0.25,height/2)),Math.floor(random(0,2)),1));
     westbound.push(new Vehicle(Math.floor(random(width)),Math.floor(random(height/2,height*0.75)),Math.floor(random(0,2)),0));
   }
+  v=new Vehicle(width/2,height/2,1,1);
 }
 
 function drawRoad(){
+  let roadHeight=height*0.50;
   rectMode(CENTER);
   fill (0);
   noStroke();
-  rect(width/2,height/2,width,height*0.50);
+  rect(width/2,height/2,width,roadHeight);
   stroke("yellow");
   strokeWeight(3);
   for (let i =0;i<width;i+=55) line(i,height/2,i+30,height/2);
@@ -53,16 +55,11 @@ function drawTruck(x,y,c,direction){
 function draw() {
   background(220);
   drawRoad();
-  // vehicle.display();
-  // vehicle.move();
-  // vehicle.speedDown();
-  // vehicle2.display();
-  // vehicle2.move();
-  // vehicle2.speedDown();
-  // vehicle.action();
-  // vehicle2.action();
   for (let e of eastbound) e.action();
   for (let w of westbound) w.action();
+//   v.display();
+//   v.move();
+//   v.speedUp();
 }
 
 class Vehicle{
@@ -89,8 +86,8 @@ class Vehicle{
   
 
   speedUp(){
-    if (this.direction===0 && this.xSpeed<15) this.xSpeed--;
-    if (this.direction===1 && this.xSpeed>-15) this.xSpeed++;
+    if (this.direction===0 && this.xSpeed>-15) this.xSpeed--;
+    if (this.direction===1 && this.xSpeed<15) this.xSpeed++;
   }
 
   speedDown(){
