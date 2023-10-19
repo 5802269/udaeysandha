@@ -8,11 +8,12 @@ let westbound = [],v;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  rectMode(CENTER);
   initVehicles();
 }
 
 function initVehicles() {
-  for (let i=0;i<20;i++){
+  for (let i=0;i<1;i++){
     eastbound.push(new Vehicle(Math.floor(random(width)),Math.floor(random(height*0.25,height/2)),Math.floor(random(0,2)),1));
     westbound.push(new Vehicle(Math.floor(random(width)),Math.floor(random(height/2,height*0.75)),Math.floor(random(0,2)),0));
   }
@@ -20,17 +21,20 @@ function initVehicles() {
 }
 
 function drawRoad(){
-  let roadHeight=height*0.50;
-  rectMode(CENTER);
+  const ROAD_HEIGHT=height*0.50,
+    SPACE_BETWEEN_YELLOW_LINES = 55,
+    YELLOW_LINE_LENGTH=30;
+
   fill (0);
   noStroke();
-  rect(width/2,height/2,width,roadHeight);
+  rect(width/2,height/2,width,ROAD_HEIGHT);
   stroke("yellow");
   strokeWeight(3);
-  for (let i =0;i<width;i+=55) line(i,height/2,i+30,height/2);
+  for (let i =0;i<width;i+=SPACE_BETWEEN_YELLOW_LINES) line(i,height/2,i+YELLOW_LINE_LENGTH,height/2);
 }
 
 function drawCar(x,y,c){
+  //const 
   stroke(0);
   strokeWeight(1);
   fill(255);
