@@ -126,7 +126,6 @@ class Vehicle{
     if (Math.floor(random(100))===1) this.speedDown();
     if (Math.floor(random(100))===1) this.changeColor();
     this.display();
-    
   }
 }
 
