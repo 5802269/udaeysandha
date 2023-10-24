@@ -5,7 +5,7 @@
 
 let eastbound = [];
 let westbound = [],v;
-let trafficLight;
+let trafficLight,frameCounter;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -63,15 +63,19 @@ function drawTrafficLight(c){
   rect(width/2,height*0.1,100,30);
 }
 
+function keyPressed(){
+if (key===" ") trafficLight.change(),frameCounter=0;
+}
+
 function draw() {
   background(220);
   drawRoad();
   for (let e of eastbound) e.action();
   for (let w of westbound) w.action();
-  // trafficLight.display();
-//   v.display();
-//   v.move();
-//   v.speedUp();
+  trafficLight.display();
+  v.display();
+  v.move();
+  v.speedUp();
 }
 
 class Vehicle{
@@ -121,26 +125,35 @@ class Vehicle{
   }
 
   action(){
-    this.move();
-    if (Math.floor(random(100))===1) this.speedUp();
-    if (Math.floor(random(100))===1) this.speedDown();
-    if (Math.floor(random(100))===1) this.changeColor();
-    this.display();
+    if (trafficLight.colorIndex===1) this.stop();
+    else{
+      this.move();
+      if (Math.floor(random(100))===1) this.speedUp();
+      if (Math.floor(random(100))===1) this.speedDown();
+      if (Math.floor(random(100))===1) this.changeColor();
+      this.display();
+    }
+
+    if (frameCounter >= 120 && trafficLight.colorIndex === 1) {
+      trafficLight.colorIndex=0; // Change the traffic light back to green
+    }
+  
+    frameCounter++;
   }
 }
 
 class TrafficLight{
-  constructior(){
-    this.color=color("green");
-
+  constructor(){
+    this.color = [color("green"), color("red")];
+    this.colorIndex = 0;
   }
 
   change(){
-    if (this.color === color("green")) this.color=color("red");
-    else if (this.color === color("red")) this.color=color("green");
+    this.colorIndex = (this.colorIndex + 1) % this.color.length;
+    print(this.color);
   }
 
   display(){
-    drawTrafficLight(this.color);
+    drawTrafficLight(this.color[this.colorIndex]);
   }
 }
