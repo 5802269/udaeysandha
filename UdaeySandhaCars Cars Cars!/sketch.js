@@ -5,7 +5,7 @@
 
 let eastbound = [];
 let westbound = [],v;
-let trafficLight;
+let trafficLight,frameCounter=0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -16,8 +16,8 @@ function setup() {
 
 function initVehicles() {
   for (let i=0;i<20;i++){
-    eastbound.push(new Vehicle(Math.floor(random(width)),Math.floor(random(height*0.25,height/2)),Math.floor(random(0,2)),1));
-    westbound.push(new Vehicle(Math.floor(random(width)),Math.floor(random(height/2,height*0.75)),Math.floor(random(0,2)),0));
+    eastbound.push(new Vehicle(Math.floor(random(width)),Math.floor(random(height*0.25+13,height/2-20)),Math.floor(random(0,2)),1));
+    westbound.push(new Vehicle(Math.floor(random(width)),Math.floor(random(height/2+20,height*0.75-13)),Math.floor(random(0,2)),0));
   }
   v=new Vehicle(width/2,height/2,1,1);
 }
@@ -59,8 +59,24 @@ function drawTruck(x,y,c,direction){
 }
 
 function drawTrafficLight(c){
-  fill(c);
-  rect(width/2,height*0.1,100,30);
+  fill(120);
+  rect(width/2,height*0.122,160,80);
+  if (trafficLight.colorIndex===0) {
+    fill(c);
+    circle(width/2-35,height*0.122,60);
+    fill(0);
+    circle(width/2+35,height*0.122,60);
+  }
+  if (trafficLight.colorIndex===1) {
+    fill(0);
+    circle(width/2-35,height*0.122,60);
+    fill(c);
+    circle(width/2+35,height*0.122,60);
+  }
+}
+
+function keyPressed(){
+if (key===" ") trafficLight.change(),frameCounter=0;
 }
 
 function draw() {
@@ -68,10 +84,14 @@ function draw() {
   drawRoad();
   for (let e of eastbound) e.action();
   for (let w of westbound) w.action();
-  // trafficLight.display();
-//   v.display();
-//   v.move();
-//   v.speedUp();
+  trafficLight.display();
+  // v.display();
+  // v.move();
+  // v.speedUp();
+  if (frameCounter >= 120 && trafficLight.colorIndex === 1) {
+    trafficLight.colorIndex=0; 
+  }
+  frameCounter++;
 }
 
 class Vehicle{
@@ -115,32 +135,29 @@ class Vehicle{
     this.xSpeed=0;
   }
 
-  start(){
-    this.xSpeed=Math.floor(random(15));
-    if (this.direction===0) this.xSpeed*=-1;
-  }
-
   action(){
     this.move();
     if (Math.floor(random(100))===1) this.speedUp();
     if (Math.floor(random(100))===1) this.speedDown();
     if (Math.floor(random(100))===1) this.changeColor();
     this.display();
+    if (trafficLight.colorIndex===1) this.stop();
+
   }
 }
 
 class TrafficLight{
-  constructior(){
-    this.color=color("green");
-
+  constructor(){
+    this.color = [color("green"), color("red")];
+    this.colorIndex = 0;
   }
 
   change(){
-    if (this.color === color("green")) this.color=color("red");
-    else if (this.color === color("red")) this.color=color("green");
+    this.colorIndex = (this.colorIndex + 1) % this.color.length;
+    print(this.color);
   }
 
   display(){
-    drawTrafficLight(this.color);
+    drawTrafficLight(this.color[this.colorIndex]);
   }
 }
