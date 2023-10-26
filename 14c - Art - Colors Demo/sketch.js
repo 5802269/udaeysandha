@@ -38,7 +38,7 @@ function drawCustom(x){
     fill(colors[index%colors.length]);
     
     // option 2: Random palette selection
-    fill(colors[Math.floor(random(colors.length))])
+    fill(colors[Math.floor(random(colors.length))]);
     rect(x,y,rectWidth,rectHeight);
     index++;
   }

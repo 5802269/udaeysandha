@@ -14,9 +14,9 @@ function setup() {
 
 function drawShape() {
   noFill();
-  for (let y=50; y<height-50;y+=9){
+  for (let y=50; y<height-50;y+=6){
     for (let x=0; x<width;x++){
-      strokeWeight(1);
+      strokeWeight(.01);
       bezier(0, y, 20, y-150, 40, y+150, 80, y);
       bezier(80, y, 120, y-150, 160, y+150, 240, y);
       bezier(240, y, 320, y-150, 400, y+150, 500, y);
