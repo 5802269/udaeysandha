@@ -18,7 +18,7 @@ function drawShape() {
   rotate(radians(180));
   translate(-width,-height);
   for (let y=50; y<height-50;y+=10){
-    for (let x=0; x<width;x+=.15){
+    for (let x=0; x<width;x+=0.15){
       point((x*x/35),y+50*sin(x * 0.1));
 
     }

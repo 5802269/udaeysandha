@@ -3,30 +3,27 @@
 // October 27, 2023
 
 
-let yValue,xValue, time = 0;
-const  Y_NOISE_SHIFT = 1,X_NOISE_SHIFT = 0.01;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  drawCurveLine();
 }
 
-function draw() {
-  let previousX=xValue;
-  let previousY=yValue;
-  yValue = noise(time);  // using perlin noise for semi random heights
-  yValue = map(yValue, 0, 1, 0, height);  // mapping according to the page height
-  time += Y_NOISE_SHIFT;  // noise shift
-
-  xValue = noise(time);  // using perlin noise for semi random heights
-  xValue = map(xValue, 0, 1, 0, width);  // mapping according to the page height
-  time += X_NOISE_SHIFT;  // noise shift
-  strokeWeight(100);
-  stroke(255);
-  point (xValue,yValue);
-  stroke(0);
-  strokeWeight(10);
-  line (previousX,previousY,xValue,yValue);
-  stroke(random(255),random(255),random(255));
-  strokeWeight(10);
-  line (width-previousX,height-previousY,xValue,yValue);
+function drawCurveLine(){
+  noFill();
+  for (let i = 0; i<random(25,50); i++){
+    strokeWeight(random(10));
+    stroke(random(255));
+    beginShape();
+    // let x= random(width);
+    // let y =random(height);
+    // curveVertex(x,y);
+    curveVertex(width/2,height/2);
+    for(let i = 0; i<random(100); i++){
+      curveVertex(random(width),random(height));
+    }
+    // curveVertex(x,y);
+    curveVertex(width/2,height/2);
+    endShape();
+}
 }
