@@ -8,7 +8,8 @@ let xValues=[];
 let yValues=[];
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(2023, 2023);
+  background(0);
   drawCurveLine();
   x= random(width);
   y =random(height);
@@ -17,7 +18,7 @@ function setup() {
 
 function drawCurveLine(){
   noFill();
-  stroke(0,0,0,150);
+  stroke( 184, 115, 51,150);
   //   for (let i = 0; i<random(25,50); i++){
   //     strokeWeight(random(10));
   //     stroke(random(255));
@@ -44,12 +45,15 @@ function drawCurveLine(){
   }
   endShape();
 
-  for (let i = 0; i<100000;i++){
+  for (let i = 0; i<1000;i++){
     beginShape();
     for(let j = 0; j<25; j++){
       let x = xValues[j];
       let y = yValues[j];
-      curveVertex(x-y*i,y+x*i);
+      // push();
+      // scale(1.0044);
+      // if (y+i*i>height) break;
+      curveVertex(x,y+i*i);
     }
     endShape();
   }
