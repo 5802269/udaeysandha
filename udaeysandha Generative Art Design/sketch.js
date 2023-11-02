@@ -50,10 +50,14 @@ function drawCurveLine(){
     for(let j = 0; j<25; j++){
       let x = xValues[j];
       let y = yValues[j];
+<<<<<<< Updated upstream
       // push();
       // scale(1.0044);
       // if (y+i*i>height) break;
       curveVertex(x,y+i*i);
+=======
+      curveVertex(x-i*i,y+j*i);
+>>>>>>> Stashed changes
     }
     endShape();
   }
