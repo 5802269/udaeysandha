@@ -2,67 +2,55 @@
 // Udaey Sandha
 // October 27, 2023
 
-let x;
-let y;
-let xValues=[];
-let yValues=[];
+// Global Variables
+let x,
+  y,
+  xValues=[],
+  yValues=[];
 
 function setup() {
-  createCanvas(2023, 2023);
+  createCanvas(2023, 2023);  // making the canvas 2023 X 2023 pix
   background(0);
-  drawCurveLine();
-  x= random(width);
-  y =random(height);
-
+  drawCurveLine();  // calling the function
 }
 
 function drawCurveLine(){
+  //draws a bunch of similar curved lines slightly translated to create art
+  
   noFill();
-  stroke( 184, 115, 51,150);
-  //   for (let i = 0; i<random(25,50); i++){
-  //     strokeWeight(random(10));
-  //     stroke(random(255));
-  //     beginShape();
-  //     // let x= random(width);
-  //     // let y =random(height);
-  //     // curveVertex(x,y);
-  //     curveVertex(width/2,height/2);
-  //     for(let i = 0; i<random(100); i++){
-  //       curveVertex(random(width),random(height));
-  //     }
-  //     // curveVertex(x,y);
-  //     curveVertex(width/2,height/2);
-  //     endShape();
-  // }
+  //stroke( 184, 115, 51,150);  //Gold
+  stroke( 0,255,0,150);  //Green
 
-  beginShape();
+  // USING A FOR LOOP TO RECORD THE 
+  //beginShape();  //uncomment to draw original curve
   for(let i = 0; i<25; i++){
     let x = random (width);
     let y = random (height);
-    curveVertex(x,y);
+    //curveVertex(x,y);  //uncomment to draw original curve
     xValues.push(x);
     yValues.push(y);
   }
-  endShape();
+  //endShape();  //uncomment to draw original curve
 
   for (let i = 0; i<1000;i++){
     beginShape();
     for(let j = 0; j<25; j++){
       let x = xValues[j];
       let y = yValues[j];
-<<<<<<< Updated upstream
-      // push();
-      // scale(1.0044);
-      // if (y+i*i>height) break;
-      curveVertex(x,y+i*i);
-=======
-      curveVertex(x-i*i,y+j*i);
->>>>>>> Stashed changes
+
+      if (x-j*j>height) break;  //only use for final image
+      curveVertex(x-j,y+i*i);  // final image
+
+      // THE OTHER IMAGES WERE MADE USING THE FOLLOWING CODE
+
+      //curveVertex(x-i*i,y+i*i);  // bottom left cornor as base
+      //curveVertex(x-i*i,y+j);  //left side as base
+      // curveVertex(x-j*j,y+i*i);  // bottom as base
+      //curveVertex(x+j*j,y-i*i);  // top as base
+      //curveVertex(x+i*i,y-j*j);  // right side as base
     }
     endShape();
   }
-
-
 }
 
 function keyPressed(){
