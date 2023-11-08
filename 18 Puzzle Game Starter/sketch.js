@@ -11,7 +11,7 @@ let grid = [
 ];
 
 const NUM_ROWS = 4, NUM_COLS = 5;
-let rectWidth = 500, rectHeight = 500;
+let rectWidth = 300, rectHeight = 300;
 let col,row;  // x and y position of the mouse (grid)
 
 function setup() {

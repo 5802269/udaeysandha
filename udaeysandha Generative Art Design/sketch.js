@@ -5,8 +5,8 @@
 // Global Variables
 let x,
   y,
-  xValues=[],
-  yValues=[];
+  xValues = [],
+  yValues = [];
 
 function setup() {
   createCanvas(2023, 2023);  // making the canvas 2023 X 2023 pix
@@ -14,32 +14,35 @@ function setup() {
   drawCurveLine();  // calling the function
 }
 
-function drawCurveLine(){
+function drawCurveLine() {
   //draws a bunch of similar curved lines slightly translated to create art
-  
+
   noFill();
   //stroke( 184, 115, 51,150);  //Gold
-  stroke( 0,255,0,150);  //Green
+  stroke(0, 255, 0, 150);  //Green
 
-  // USING A FOR LOOP TO RECORD THE 
+  // USING A FOR LOOP TO RECORD THE CORDINATES OF THE ORIGINAL CURVE
   //beginShape();  //uncomment to draw original curve
-  for(let i = 0; i<25; i++){
-    let x = random (width);
-    let y = random (height);
+  for (let i = 0; i < 25; i++) {
+    let x = random(width);
+    let y = random(height);
     //curveVertex(x,y);  //uncomment to draw original curve
+
+    // pushing x and y values of original curve to an array
     xValues.push(x);
     yValues.push(y);
   }
   //endShape();  //uncomment to draw original curve
 
-  for (let i = 0; i<1000;i++){
+  for (let i = 0; i < 1000; i++) {
+    // redrawing the original curve but slightly translated
     beginShape();
-    for(let j = 0; j<25; j++){
+    for (let j = 0; j < 25; j++) {
       let x = xValues[j];
       let y = yValues[j];
 
-      if (x-j*j>height) break;  //only use for final image
-      curveVertex(x-j,y+i*i);  // final image
+      if (x - j * j > height) break;  //only use for final image
+      curveVertex(x - j, y + i * i);  // final image
 
       // THE OTHER IMAGES WERE MADE USING THE FOLLOWING CODE
 
@@ -53,6 +56,7 @@ function drawCurveLine(){
   }
 }
 
-function keyPressed(){
-  if (key ==="s") save ("CS30 Image.png");
+function keyPressed() {
+  //saving the image by pressing s
+  if (key === "s") save("CS30 Image.png");
 }
