@@ -11,11 +11,13 @@ let grid = [
 ];
 
 const NUM_ROWS = 4, NUM_COLS = 5;
-let rectWidth = 300, rectHeight = 300;
+let rectWidth = 500, rectHeight = 500;
 let col,row;  // x and y position of the mouse (grid)
+let win = false;
 
 function setup() {
   createCanvas(rectWidth * NUM_COLS, rectHeight * NUM_ROWS);
+  randomize(grid);
 }
 
 function draw() {
@@ -24,14 +26,28 @@ function draw() {
   background(220);
   renderGrid();
   print(col,row);
+  youWin();
+  print (win);
+  overlay();
+}
+
+function randomize(grid){
+  for (let x = 0; x < NUM_COLS; x++) {
+    for (let y = 0; y < NUM_ROWS; y++) {
+      grid[y][x] = 255*floor(random(2));
+    }
+  }
 }
 
 function mousePressed(){
-  flip(col,row);
-  if (row>0) flip(col,row-1);
-  if (row<NUM_ROWS-1) flip(col,row+1);
-  if (col>0)flip(col-1,row);
-  if (col<NUM_COLS-1)flip(col+1,row);
+  if (keyIsPressed && keyCode === SHIFT) flip(col,row);
+  else {
+    flip(col,row);
+    if (row>0) flip(col,row-1);
+    if (row<NUM_ROWS-1) flip(col,row+1);
+    if (col>0)flip(col-1,row);
+    if (col<NUM_COLS-1)flip(col+1,row);
+  }
 }
 
 function flip(x,y){
@@ -49,12 +65,41 @@ function getCurrentY(){
   return int(constrainY/rectHeight);
 }
 
+function youWin(){
+  for (let y = 0; y < NUM_ROWS; y++) {
+    if (grid[y].indexOf(255) === -1 || grid[y].indexOf(0) === -1) win = true;
+    else {
+      win = false;
+      { break; }
+    }
+  }
+  stroke(100);
+  fill(150);
+  textSize(100);
+  rectMode(CENTER);
+  if (win) text("You Win !", rectWidth * NUM_COLS/2,rectHeight * NUM_ROWS/2, rectWidth,rectHeight);
+}
+
 function renderGrid() {
   for (let x = 0; x < NUM_COLS; x++) {
     for (let y = 0; y < NUM_ROWS; y++) {
       let fillValue = grid[y][x];
       fill (fillValue);
+      stroke(150);
+      rectMode(CORNER);
       rect(x*rectWidth, y*rectHeight,rectWidth,rectHeight);
     }
+  }
+}
+function overlay(){
+  fill (0,255,0,50);
+  rectMode(CORNER);
+  if (keyIsPressed && keyCode === SHIFT) rect(col*rectWidth, row*rectHeight,rectWidth,rectHeight);
+  else {
+    rect(col*rectWidth, row*rectHeight,rectWidth,rectHeight);
+    if (row>0) rect(col*rectWidth, (row-1)*rectHeight,rectWidth,rectHeight);
+    if (row<NUM_ROWS-1) rect(col*rectWidth, (row+1)*rectHeight,rectWidth,rectHeight);
+    if (col>0)rect((col-1)*rectWidth, row*rectHeight,rectWidth,rectHeight);
+    if (col<NUM_COLS-1)rect((col+1)*rectWidth, row*rectHeight,rectWidth,rectHeight);
   }
 }
