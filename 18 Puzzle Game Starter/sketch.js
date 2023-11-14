@@ -3,17 +3,12 @@
 // Nov 6, 2023
 // A first foray into working with 2D arrays.
 
-let grid = [
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0]
-];
+let grid=[[],[],[],[]];
 
 const NUM_ROWS = 4, NUM_COLS = 5;
-let rectWidth = 500, rectHeight = 500;
+let rectWidth = 350, rectHeight = 350;
 let col,row;  // x and y position of the mouse (grid)
-let win = true, cross = false;
+let win, cross = false;
 
 function setup() {
   createCanvas(rectWidth * NUM_COLS, rectHeight * NUM_ROWS);
@@ -77,6 +72,7 @@ function getCurrentY(){
 }
 
 function youWin(){
+  win = false;
   // for (let y = 0; y < NUM_ROWS; y++) {
   //   if (grid[y].indexOf(255) === -1 || grid[y].indexOf(0) === -1) win = true;
   //   else {
@@ -84,15 +80,29 @@ function youWin(){
   //     { break; }
   //   }
   // }
+let black = false;
+let white = false;
   for (let y = 0; y < NUM_ROWS; y++) {
-    let hasBlack = grid[y].includes(0);
-    let hasWhite = grid[y].includes(255);
-
-    if ((hasBlack && hasWhite) || (!hasBlack && !hasWhite)) {
-      win = false;
-      break; // Break out of the loop if the condition is met for any row
-    } else win = true;
+    if (grid[y].indexOf(255) === -1 && !white) {
+      //win = true;
+      black=true;
+    }
+    else if (grid[y].indexOf(0) === -1){
+      //win = true;
+      
+      white = true;
+      
+    } 
+    else {
+      black = false;
+      white= false;
+      break;
+    }
   }
+ if (black && !white) win = true;
+ if (!black && white) win = true;
+
+
   stroke(100);
   fill(150);
   textSize(100);
@@ -106,6 +116,7 @@ function renderGrid() {
       let fillValue = grid[y][x];
       fill (fillValue);
       stroke(150);
+      strokeWeight(4);
       rectMode(CORNER);
       rect(x*rectWidth, y*rectHeight,rectWidth,rectHeight);
     }
@@ -129,13 +140,21 @@ function overlay() {
   rectMode(CORNER);
 
   if (keyIsPressed && keyCode === SHIFT) rect(col*rectWidth, row*rectHeight,rectWidth,rectHeight);
+  else if(cross){
+    rect(col * rectWidth, row * rectHeight, rectWidth, rectHeight);
+    if (row<NUM_ROWS-1) rect(col*rectWidth, (row+1)*rectHeight,rectWidth,rectHeight);
+    //if (col>0)flip(col-1,row);
+    if (col<NUM_COLS-1)rect((col+1)*rectWidth, row*rectHeight,rectWidth,rectHeight);
+    if (col<NUM_COLS-1 && row<NUM_ROWS-1)rect((col+1)*rectWidth, (row+1)*rectHeight,rectWidth,rectHeight);
+  }
   else{
     rect(col * rectWidth, row * rectHeight, rectWidth, rectHeight);
 
     for (let i = -1; i <= 1; i += 2) {
       rect((col + i) * rectWidth, row * rectHeight, rectWidth, rectHeight);
       rect(col * rectWidth, (row + i) * rectHeight, rectWidth, rectHeight);
+    }
   }
-}
+
 }
 
