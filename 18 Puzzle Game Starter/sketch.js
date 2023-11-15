@@ -155,6 +155,4 @@ function overlay() {
       rect(col * rectWidth, (row + i) * rectHeight, rectWidth, rectHeight);
     }
   }
-
 }
-
