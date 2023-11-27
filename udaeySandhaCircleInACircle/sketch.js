@@ -15,19 +15,23 @@ function setup() {
 
 function draw() {
   background(220);
-  circleInACircle(width/2,height/2,3,circleSize);
+  circleInACircle(width/2,height/2,5,circleSize);
 }
 
 function circleInACircle(x,y,n,s){
-  if (s>10){
+  let R = s/2;
+  let a = 360/(2*n);
+  let r = sin(a)*R/(1+sin(a));
+  if (s<10){
     circle(x,y,s);
-    let R = s/2;
-    let a = 360/(2*n);
-    let r = sin(a)*R/(1+sin(a));
     circle(x+R-r,y,2*r);
-    print(x+(R-r)*cos(2*a));
-    circle(x+(R-r)*cos(2*a),y+(R-r)*sin(2*a),2*r);
+    // print(x+(R-r)*cos(2*a));
+
+    //circle(x+(R-r)*cos(2*a),y+(R-r)*sin(2*a),2*r);
     
+} else{
+  circle(x+R-r,y,2*r);
+  circleInACircle(x+(R-r)*cos(2*a),y+(R-r)*sin(2*a),n,2*r); 
 }
 
 }
