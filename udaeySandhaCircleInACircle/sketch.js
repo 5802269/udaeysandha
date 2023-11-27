@@ -24,14 +24,15 @@ function circleInACircle(x,y,n,s){
   let r = sin(a)*R/(1+sin(a));
   if (s<10){
     circle(x,y,s);
-    circle(x+R-r,y,2*r);
-    // print(x+(R-r)*cos(2*a));
-
+  }
+  else{
+    for(let i = 0;i<n; i++){
+      let ang = a*i;
+      circleInACircle(x+(R-r)*cos(2*ang),y+(R-r)*sin(2*ang),n,2*r);
+      print(ang);
+    }
     //circle(x+(R-r)*cos(2*a),y+(R-r)*sin(2*a),2*r);
     
-} else{
-  circle(x+R-r,y,2*r);
-  circleInACircle(x+(R-r)*cos(2*a),y+(R-r)*sin(2*a),n,2*r); 
 }
 
 }
