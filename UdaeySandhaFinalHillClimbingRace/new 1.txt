@@ -1,0 +1,17 @@
+function controls →←
+speed velocity
+air control
+grounf contact
+suspension
+tire spin
+x is thesame
+figure y for each tyre
+background
+ground tiles
+ground interaction
+start stop
+finish line
+deaccelerating fuel out
+braking 
+gravity
+object interaction
