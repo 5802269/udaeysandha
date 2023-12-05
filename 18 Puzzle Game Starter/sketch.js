@@ -7,7 +7,7 @@
 let grid = [[], [], [], []];  // defining an array to store color for each rect
 
 const NUM_ROWS = 4, NUM_COLS = 5;  // number of rows and cols
-let rectWidth = 200, rectHeight = 200;  // rect size
+let rectWidth = 150, rectHeight = 150;  // rect size
 let col, row;  // x and y position of the mouse (grid)
 let win, cross = false;  // win → won or not , cross → cross pattern 
 
@@ -39,13 +39,13 @@ function randomize(grid) {
 function mousePressed() {
   // fliping the color if mouse is pressed
   if (keyIsPressed && keyCode === SHIFT) flip(col, row);  // if shift is pressed only the main rect changes color
-  else if (cross) {
+  else if (cross) { // if cross is true, the color flip happens in a box
     flip(col, row);
     if (row < NUM_ROWS - 1) flip(col, row + 1);
     if (col < NUM_COLS - 1) flip(col + 1, row);
     if (col < NUM_COLS - 1 && row < NUM_ROWS - 1) flip(col + 1, row + 1);
   } else {
-    flip(col, row);
+    flip(col, row);  // if cross is false, the color flip happens in a cross
     if (row > 0) flip(col, row - 1);
     if (row < NUM_ROWS - 1) flip(col, row + 1);
     if (col > 0) flip(col - 1, row);
@@ -54,6 +54,7 @@ function mousePressed() {
 }
 
 function keyPressed() {
+  // changes the shape from cross to box or visa versa
   if (key === " ") cross = !cross;
 }
 
@@ -77,26 +78,17 @@ function getCurrentY() {
 }
 
 function youWin() {
+  // determins if you won
   win = false;
-  // for (let y = 0; y < NUM_ROWS; y++) {
-  //   if (grid[y].indexOf(255) === -1 || grid[y].indexOf(0) === -1) win = true;
-  //   else {
-  //     win = false;
-  //     { break; }
-  //   }
-  // }
   let black = false;
   let white = false;
+
   for (let y = 0; y < NUM_ROWS; y++) {
     if (grid[y].indexOf(255) === -1 && !white) {
-      //win = true;
       black = true;
     }
     else if (grid[y].indexOf(0) === -1) {
-      //win = true;
-
       white = true;
-
     }
     else {
       black = false;
@@ -107,7 +99,7 @@ function youWin() {
   if (black && !white) win = true;
   if (!black && white) win = true;
 
-
+  //  printing win statement
   stroke(100);
   fill(150);
   textSize(rectWidth / 4);
@@ -117,6 +109,7 @@ function youWin() {
 }
 
 function renderGrid() {
+  // draws the grid
   for (let x = 0; x < NUM_COLS; x++) {
     for (let y = 0; y < NUM_ROWS; y++) {
       let fillValue = grid[y][x];
@@ -130,6 +123,7 @@ function renderGrid() {
 }
 
 function overlay() {
+  // indicates which rectangles will be impacted on a click.
   fill(0, 200, 0, 100);
   rectMode(CORNER);
 
