@@ -5,12 +5,11 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let b = p5.board('/dev/cu.usbmodem1421', 'arduino');
+let b = p5.board("/dev/cu.usbmodem1421", "arduino");
 let led;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  led = b.pin(9, 'LED');
+  led = b.pin(9, "LED");
 }
 
 function keyPressed() {
@@ -20,14 +19,10 @@ function keyPressed() {
     led.off();
   } else if (keyCode === UP_ARROW){
     led.blink();
-    console.log('Hello, World!');
+    console.log("Hello, World!"); 
   } else if (keyCode === DOWN_ARROW) {
     led.noBlink();
   }
-}
-
-function draw() {
-  background(220);
 }
 
 // let sensorVal = 0;
