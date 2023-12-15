@@ -1,17 +1,25 @@
-let serial;
+let port, reader, writer;
 
-function setup(){
-  createCanvas(320,240);
-  serial = new p5.SerialPort();
-  serial.open("USB\VID_2341&PID_0043\55736313937351C04001");
+async function setup() {
+	createCanvas(windowWidth, windowHeight);
+	background("black");
+
+	noLoop();
+	({ port, reader, writer } = await getPort());
+	loop();
 }
 
-function draw(){
-  background("#3399EE");
-  fill(255);
-  text(mouseY,width/2,height/2);
-}
-
-function mouseDragged(){
-  serial.write(mouseY);
+async function draw() {
+	if (port) {
+		try {
+			if (mouseIsPressed) {
+				background("RED");
+				await writer.write("clicked!\n");
+			}
+			else {
+				background("BLACK");
+				await writer.write("not clicked!\n");
+			}
+		} catch (e) { console.error(e) }
+	}
 }
