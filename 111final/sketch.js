@@ -9,17 +9,16 @@ async function setup() {
 	loop();
 }
 
-async function draw() {
-	if (port) {
-		try {
-			if (mouseIsPressed) {
-				background("RED");
-				await writer.write("clicked!\n");
-			}
-			else {
-				background("BLACK");
-				await writer.write("not clicked!\n");
-			}
-		} catch (e) { console.error(e) }
-	}
+async function draw() {	if (port) {
+	try {
+		if (mouseIsPressed) {
+			background("RED");
+			await writer.write("clicked!\n");
+		}
+		else {
+			background("BLACK");
+			await writer.write("not clicked!\n");
+		}
+	} catch (e) { console.error(e) }
+}
 }
