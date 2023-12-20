@@ -28,17 +28,17 @@ pinMode(led, OUTPUT);//red LED
 
 NRF24L01.begin(); //open the pipes to read and write from board 1
 
-NRF24L01.openWritingPipe(address[0]);//open writing pipe to address pipe 1
-
-NRF24L01.openReadingPipe(1, address[1]);//open reading pipe from address pipe 2
+//NRF24L01.openWritingPipe(address[0]);//open writing pipe to address pipe 1
+//
+//NRF24L01.openReadingPipe(1, address[1]);//open reading pipe from address pipe 2
 
 //this is the only difference in the two sketches required
 
 //the two lines below are for board two, notice how the reading and writing pipes are reversed
 
-//NRF24L01.openReadingPipe(1, address[0]);//open reading pipe from address pipe 1
+NRF24L01.openReadingPipe(1, address[0]);//open reading pipe from address pipe 1
 
-//NRF24L01.openWritingPipe(address[1]);//open writing pipe to address pipe 2
+NRF24L01.openWritingPipe(address[1]);//open writing pipe to address pipe 2
 
 NRF24L01.setPALevel(RF24_PA_MAX);//set RF power output to minimum, RF24_PA_MIN (change to RF24_PA_MAX if required)
 
