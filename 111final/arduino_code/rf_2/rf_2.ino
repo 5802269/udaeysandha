@@ -18,6 +18,9 @@ boolean buttonState = false;//used for both transmission and receive
 
 void setup() {
 
+pinMode(5, OUTPUT);
+pinMode(6, OUTPUT);
+
 //setup the Arduino pins
 
 pinMode(button, INPUT_PULLUP);
@@ -28,17 +31,17 @@ pinMode(led, OUTPUT);//red LED
 
 NRF24L01.begin(); //open the pipes to read and write from board 1
 
-NRF24L01.openWritingPipe(address[0]);//open writing pipe to address pipe 1
-
-NRF24L01.openReadingPipe(1, address[1]);//open reading pipe from address pipe 2
+//NRF24L01.openWritingPipe(address[0]);//open writing pipe to address pipe 1
+//
+//NRF24L01.openReadingPipe(1, address[1]);//open reading pipe from address pipe 2
 
 //this is the only difference in the two sketches required
 
 //the two lines below are for board two, notice how the reading and writing pipes are reversed
 
-//NRF24L01.openReadingPipe(1, address[0]);//open reading pipe from address pipe 1
-//
-//NRF24L01.openWritingPipe(address[1]);//open writing pipe to address pipe 2
+NRF24L01.openReadingPipe(1, address[0]);//open reading pipe from address pipe 1
+
+NRF24L01.openWritingPipe(address[1]);//open writing pipe to address pipe 2
 
 NRF24L01.setPALevel(RF24_PA_MAX);//set RF power output to minimum, RF24_PA_MIN (change to RF24_PA_MAX if required)
 
@@ -56,35 +59,35 @@ void loop() {
 
 //Transmit button change TO the other Arduino
 
-delay(10);
-
-NRF24L01.stopListening();
-
-buttonState = digitalRead(button);//test for button press on THIS board
-
-if (buttonState == LOW)//button is pulled up so test for LOW
-
-{
-
-NRF24L01.write(&buttonState, sizeof(buttonState));//send LOW state to other Arduino board
-
-//flash the yellow LED to show progress
-
-digitalWrite(confirmLed, HIGH);
-
-delay(100);
-
-digitalWrite(confirmLed, LOW);
-
-}
-
-buttonState = HIGH;//reset the button state variable
-
-
-
-//Receive button change FROM the other Arduino
-
-delay(10);
+//delay(10);
+//
+//NRF24L01.stopListening();
+//
+//buttonState = digitalRead(button);//test for button press on THIS board
+//
+//if (buttonState == LOW)//button is pulled up so test for LOW
+//
+//{
+//
+//NRF24L01.write(&buttonState, sizeof(buttonState));//send LOW state to other Arduino board
+//
+////flash the yellow LED to show progress
+//
+//digitalWrite(confirmLed, HIGH);
+//
+//delay(100);
+//
+//digitalWrite(confirmLed, LOW);
+//
+//}
+//
+//buttonState = HIGH;//reset the button state variable
+//
+//
+//
+////Receive button change FROM the other Arduino
+//
+//delay(10);
 
 NRF24L01.startListening();
 
@@ -104,13 +107,20 @@ if (buttonState == HIGH)//test the other Arduino's button state
 
 digitalWrite(led, LOW);
 
+
+
 }
 
 else
 
 {
 
-flashLed();//indicate that the button was pressed on the other board
+//flashLed();//indicate that the button was pressed on the other board
+digitalWrite(5, HIGH);
+digitalWrite(6, LOW);
+delay(500);
+digitalWrite(5, LOW);
+digitalWrite(6, LOW);
 
 }
 
