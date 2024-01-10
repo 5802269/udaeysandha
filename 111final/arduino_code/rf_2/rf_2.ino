@@ -20,6 +20,8 @@ void setup() {
 
 pinMode(5, OUTPUT);
 pinMode(6, OUTPUT);
+pinMode(9, OUTPUT);
+pinMode(10, OUTPUT);
 
 //setup the Arduino pins
 
@@ -28,6 +30,8 @@ pinMode(button, INPUT_PULLUP);
 pinMode(confirmLed, OUTPUT);//yellow LED
 
 pinMode(led, OUTPUT);//red LED
+
+Serial.begin(9600);
 
 NRF24L01.begin(); //open the pipes to read and write from board 1
 
@@ -118,9 +122,14 @@ else
 //flashLed();//indicate that the button was pressed on the other board
 digitalWrite(5, HIGH);
 digitalWrite(6, LOW);
+digitalWrite(9, HIGH);
+digitalWrite(10, LOW);
 delay(500);
 digitalWrite(5, LOW);
 digitalWrite(6, LOW);
+digitalWrite(9, LOW);
+digitalWrite(10, LOW);
+Serial.print("yes");
 
 }
 
