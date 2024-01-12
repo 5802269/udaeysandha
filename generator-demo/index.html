@@ -143,7 +143,7 @@
     //      toolbox: toolbox});
 
     var demoWorkspace = Blockly.inject('blocklyDiv',
-    {toolbox: document.getElementById('toolbox'),
+    {toolbox: toolbox,
      grid:
          {spacing: 20,
           length: 3,
@@ -154,126 +154,94 @@
     var startBlocks = {
         "blocks":{
           "languageVersion":0,
-          "blocks":[{
-  "type": "move",
-  "message0": "move %1",
-  "args0": [
-    {
-      "type": "field_dropdown",
-      "name": "move",
-      "options": [
-        [
-          "Forward",
-          "forward"
-        ],
-        [
-          "Backward",
-          "backwards"
-        ],
-        [
-          "Right",
-          "right"
-        ],
-        [
-          "Left",
-          "left"
-        ]
-      ]
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 230,
-  "tooltip": "",
-  "helpUrl": ""
-}]
-      //     [
-      //       {
-      //         "type":"controls_if",
-      //         "inline":false,
-      //         "extraState":{
-      //           "hasElse":true
-      //         },
-      //         "inputs":{
-      //           "IF0":{
-      //             "block":{
-      //               "type":"logic_compare",
-      //               "fields":{
-      //                 "OP":"EQ"
-      //               },
-      //               "inputs":{
-      //                 "A":{
-      //                   "block":{
-      //                     "type":"math_arithmetic",
-      //                     "fields":{
-      //                       "OP":"MULTIPLY"
-      //                     },
-      //                     "inputs":{
-      //                       "A":{
-      //                         "block":{
-      //                           "type":"math_number",
-      //                           "fields":{
-      //                             "NUM":6
-      //                           }
-      //                         }
-      //                       },
-      //                       "B":{
-      //                         "block":{
-      //                           "type":"math_number",
-      //                           "fields":{
-      //                             "NUM":7
-      //                           }
-      //                         }
-      //                       }
-      //                     }
-      //                   }
-      //                 },
-      //                 "B":{
-      //                   "block":{
-      //                     "type":"math_number",
-      //                     "fields":{
-      //                       "NUM":42
-      //                     }
-      //                   }
-      //                 }
-      //               }
-      //             }
-      //           },
-      //           "DO0":{
-      //             "block":{
-      //               "type":"text_print",
-      //               "inline":false,
-      //               "inputs":{
-      //                 "TEXT":{
-      //                   "block":{
-      //                     "type":"text",
-      //                     "fields":{
-      //                       "TEXT":"Don't panic"
-      //                     }
-      //                   }
-      //                 }
-      //               }
-      //             }
-      //           },
-      //           "ELSE":{
-      //             "block":{
-      //               "type":"text_print",
-      //               "inline":false,
-      //               "inputs":{
-      //                 "TEXT":{
-      //                   "block":{
-      //                     "type":"text",
-      //                     "fields":{
-      //                       "TEXT":"Panic"
-      //                     }
-      //                   }
-      //                 }
-      //               }
-      //             }
-      //           }
-      //         }
-      //       }
-      //     ]
+          "blocks":
+          [
+            {
+              "type":"controls_if",
+              "inline":false,
+              "extraState":{
+                "hasElse":true
+              },
+              "inputs":{
+                "IF0":{
+                  "block":{
+                    "type":"logic_compare",
+                    "fields":{
+                      "OP":"EQ"
+                    },
+                    "inputs":{
+                      "A":{
+                        "block":{
+                          "type":"math_arithmetic",
+                          "fields":{
+                            "OP":"MULTIPLY"
+                          },
+                          "inputs":{
+                            "A":{
+                              "block":{
+                                "type":"math_number",
+                                "fields":{
+                                  "NUM":6
+                                }
+                              }
+                            },
+                            "B":{
+                              "block":{
+                                "type":"math_number",
+                                "fields":{
+                                  "NUM":7
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "B":{
+                        "block":{
+                          "type":"math_number",
+                          "fields":{
+                            "NUM":42
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "DO0":{
+                  "block":{
+                    "type":"text_print",
+                    "inline":false,
+                    "inputs":{
+                      "TEXT":{
+                        "block":{
+                          "type":"text",
+                          "fields":{
+                            "TEXT":"Don't panic"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "ELSE":{
+                  "block":{
+                    "type":"text_print",
+                    "inline":false,
+                    "inputs":{
+                      "TEXT":{
+                        "block":{
+                          "type":"text",
+                          "fields":{
+                            "TEXT":"Panic"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
         }
       }
     Blockly.serialization.workspaces.load(startBlocks, demoWorkspace);
