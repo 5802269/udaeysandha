@@ -13,6 +13,8 @@
 
   <script src="https://unpkg.com/blockly/msg/en.js"></script>
 
+  <script src="libraries/p5.min.js"></script>
+
   <script>
     Blockly.Blocks['move'] = {
       init: function () {
@@ -43,7 +45,17 @@
     javascript.javascriptGenerator.forBlock['move'] = function (block, generator) {
     var dropdown_move = block.getFieldValue('move');
     // Generate JavaScript code based on the selected move option.
-    var code = 'console.log("' + dropdown_move + '");\n';
+    var code = 'console.log("' + dropdown_move + '")\n';
+
+
+//     if (port) {
+// 	try {
+//     var code =  writer.write(dropdown_move+"\n");
+
+// 	} catch (e) { console.error(e) }
+// }
+    // console.log("' + dropdown_move + '");
+
     return code;
   };
   </script>
@@ -60,6 +72,10 @@
   </style>
 </head>
 <body>
+
+  <script language="javascript" type="text/javascript" src="libraries/p5.web-serial.js"></script>
+  <script src="sketch.js"></script>
+
   <p>This is a simple demo of generating code from blocks and running
   the code using eval.</p>
 
