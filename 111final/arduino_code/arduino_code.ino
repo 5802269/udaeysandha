@@ -20,7 +20,7 @@ void loop() {
   if (Serial.available()) {
     lcd.clear();
     // If data is available to read,
-    val = Serial.readString();
+    val = Serial.readStringUntil('\n');
     val.trim();
     lcd.print(val);
 //    val = Serial.readStringUntil('\n');

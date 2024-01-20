@@ -45,7 +45,14 @@
     javascript.javascriptGenerator.forBlock['move'] = function (block, generator) {
     var dropdown_move = block.getFieldValue('move');
     // Generate JavaScript code based on the selected move option.
-    var code = 'console.log("' + dropdown_move + '")\n';
+    if (port) {
+  try {
+    var code = 'writer.write("' + dropdown_move + '\\n");\n';
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 
 
 //     if (port) {
