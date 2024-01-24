@@ -2,7 +2,16 @@
 
 RF24 NRF24L01(7, 8);
 
-byte address[][6] = {"pipe1", "pipe2"};
+byte address[][6] = { "pipe1", "pipe2" };
+
+struct ControlData {
+  boolean forward;
+  boolean backward;
+  boolean left;
+  boolean right;
+  int duration;
+};
+ControlData controlData;
 
 void setup() {
   pinMode(5, OUTPUT);
@@ -24,37 +33,74 @@ void loop() {
   NRF24L01.startListening();
 
   if (NRF24L01.available()) {
-   boolean forward=false, backward=false, left=false, right=false;
-    Serial.println(forward);
-    NRF24L01.read(&forward, sizeof(forward));
-    NRF24L01.read(&backward, sizeof(backward));
-    NRF24L01.read(&left, sizeof(left));
-    NRF24L01.read(&right, sizeof(right));
-    Serial.println(forward);
+    //boolean forward = false, backward = false, left = false, right = false;
+    //boolean controlSignals[] = {forward, backward, left, right};
+    //NRF24L01.read(&controlSignals, sizeof(controlSignals));
+    NRF24L01.read(&controlData, sizeof(controlData));
+    Serial.println(controlData.duration);
 
-    // Perform actions based on received control signals
-    if (forward) {
+    if (controlData.forward) {
       // Perform actions for forward
-      digitalWrite(5, HIGH);
-      digitalWrite(6, LOW);
-      digitalWrite(9, HIGH);
-      digitalWrite(10, LOW);
-      delay(500);
-      digitalWrite(5, LOW);
-      digitalWrite(6, LOW);
-      digitalWrite(9, LOW);
-      digitalWrite(10, LOW);
-    } else if (backward) {
-      digitalWrite(5, LOW);
-      digitalWrite(6, HIGH);
-      digitalWrite(9, LOW);
-      digitalWrite(10, HIGH);
-    } else if (left) {
-      // Perform actions for left
-      // Add your left actions here
-    } else if (right) {
-      // Perform actions for right
-      // Add your right actions here
+      moveForward();
+    } else if (controlData.backward) {
+      // Perform actions for backward
+      moveBackward();
+    } else if (controlData.left) {
+      moveLeft();
+    } else if (controlData.right) {
+      moveRight();
     }
+    // Perform actions based on received control signals
+    // if (controlSignals[0]) {
+    //   // Perform actions for forward
+    //   moveForward();
+    // } else if (controlSignals[1]) {
+    //   // Perform actions for backward
+    //   moveBackward();
+    // } else if (controlSignals[2]) {
+    //   moveLeft();
+    // } else if (controlSignals[3]) {
+    //   moveRight();
+    // }
   }
+}
+
+void stop() {
+  delay(controlData.duration);
+  digitalWrite(5, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(9, LOW);
+  digitalWrite(10, LOW);
+}
+
+void moveForward() {
+  digitalWrite(5, LOW);
+  digitalWrite(6, HIGH);
+  digitalWrite(9, LOW);
+  digitalWrite(10, HIGH);
+  stop();
+}
+
+void moveBackward() {
+  digitalWrite(5, HIGH);
+  digitalWrite(6, LOW);
+  digitalWrite(9, HIGH);
+  digitalWrite(10, LOW);
+  stop();
+}
+
+void moveLeft() {
+  digitalWrite(5, HIGH);
+  digitalWrite(6, LOW);
+  digitalWrite(9, LOW);
+  digitalWrite(10, HIGH);
+  stop();
+}
+
+void moveRight() {
+  digitalWrite(5, LOW);
+  digitalWrite(6, HIGH);
+  digitalWrite(9, HIGH);
+  digitalWrite(10, LOW);
+  stop();
 }

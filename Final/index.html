@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Final</title>
+  
+  <!-- adding favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+
+  <!-- Blockly Dependencies -->
+  <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
+  <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
+  <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+  <script src="https://unpkg.com/blockly/msg/en.js"></script>
+
+  <!-- p5.js and p5.web-serial.js -->
+  <script src="libraries/p5.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/p5.web-serial.js"></script>
+
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- connecting to adriuno -->
+  <script src="assets/port_connection.js"></script>
+
+  <!-- text and buttons -->
+  <h1 style="margin-bottom: 1px; margin-top: 0;">Connect blocks to write code and control the robot 🤖.</h1>
+  <p style="margin-bottom: 15px; margin-top: 0;">
+    <button onclick="showCode()">Show Serial Message</button>
+    <button onclick="runCode()">Run Serial Command</button>
+  </p>
+
+  <!-- blockly stuff -->
+  <div id="blocklyDiv" style="position: absolute"></div>
+  <div id="blocklyArea" style="width: 100%; height: 87vh;"></div>
+
+  <!-- including blockly files -->
+  <script src="assets/toolbox.js"></script>
+  <script src="assets/move_block.js"></script>
+  <script src="assets/workspace.js"></script>
+  <script src="assets/start_blocks.js"></script>
+  <script src="assets/code_generation.js"></script>
+
+  <!-- loading workspace and start blocks -->
+  <script>Blockly.serialization.workspaces.load(startBlocks, workspace);</script>
+
+</body>
+
+</html>
