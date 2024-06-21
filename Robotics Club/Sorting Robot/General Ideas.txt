@@ -1,0 +1,7 @@
+- Use Aluminum C-Channel or 2020 Extrusions to make a frame
+- initial angled hopper into a small color sensing pathway
+    - yellow balls diverted out of machine into main area
+    - red balls diverted into mostly vertical cleated conveyer, then into holding bucket
+- holding bucket opens door to release when:
+	- radio message received? (probably not allowed)
+        - ultrasonic distance measured is very small (5cm?) for a set amount of time (to prevent unintentional detections while passing by)
